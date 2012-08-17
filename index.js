@@ -42,6 +42,8 @@ omx.start = function(fn) {
     }
     if (map) {
         map(fn,cb);
+    } else {
+        cb(fn);
     }
 
     function cb(fn) {
