@@ -10,9 +10,14 @@ Requirements
 * nodejs (`apt-get install nodejs`)
 * express (optional)
 
+Install
+-------
+
+    npm install omxcontrol
+
 Usage
 -----
-    
+
 Basic usage
     
     omx = require('omxcontrol');
