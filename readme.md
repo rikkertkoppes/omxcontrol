@@ -25,7 +25,11 @@ Basic usage
     omx.start(filename);
 
     omx.pause();
-
+    
+    omx.volume_up();
+    
+    omx.volume_down();
+    
     omx.quit();
 
 Use with express as middleware. This type of usage exposes the above methods as an http api:
