@@ -5,6 +5,10 @@ var pipe = false;
 var map = false;
 var DEFAULT_PATH = '/omx';
 
+function omx(mapper) {
+    map = mapper;
+}
+
 omx.start = function(fn) {
     if (!pipe) {
         pipe = 'omxcontrol';
