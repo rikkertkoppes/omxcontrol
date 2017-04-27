@@ -35,7 +35,7 @@ omx.express = function(req,res,next) {
     next();
 };
 
-omx.start = function(fn) {
+omx.start = function(fn, onFinish) {
     if (!pipe) {
         pipe = 'omxcontrol';
         exec('mkfifo '+pipe);
@@ -50,6 +50,9 @@ omx.start = function(fn) {
         console.log(fn);
         exec('omxplayer -o hdmi "'+fn+'" < '+pipe,function(error, stdout, stderr) {
             console.log(stdout);
+            if (onFinish) {
+                onFinish();
+            }
         });
         exec('echo . > '+pipe);
     }
