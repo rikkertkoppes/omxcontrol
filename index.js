@@ -78,7 +78,7 @@ omx.mapKey('quit','q',function() {
     pipe = false;
 });
 omx.mapKey('play','.');
-omx.mapKey('forward',"$'\\x1b\\x5b\\x43'");
-omx.mapKey('backward',"$'\\x1b\\x5b\\x44'");
+omx.mapKey('forward',"\\x5b\\x43");
+omx.mapKey('backward',"\\x5b\\x44");
 
 module.exports = omx;
