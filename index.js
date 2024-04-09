@@ -5,6 +5,8 @@ var pipe = false;
 var map = false;
 var DEFAULT_PATH = '/omx';
 
+var BINARY = 'omxplayer';
+
 function omx(mapper) {
     map = mapper;
     return omx.express;
@@ -48,7 +50,7 @@ omx.start = function(fn, onFinish) {
 
     function cb(fn) {
         console.log(fn);
-        exec('omxplayer -o hdmi "'+fn+'" < '+pipe,function(error, stdout, stderr) {
+        exec(BINARY + ' -o hdmi "'+fn+'" < '+pipe,function(error, stdout, stderr) {
             console.log(stdout);
             if (onFinish) {
                 onFinish();
