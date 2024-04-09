@@ -1,4 +1,4 @@
-var exec = require("child_process").exec;
+var exec = require("child_process").execFile;
 var parseurl = require("url");
 
 var pipe = false;
@@ -42,7 +42,7 @@ omx.express = function (req, res, next) {
 omx.start = function (fn, onFinish) {
     if (!pipe) {
         pipe = "omxcontrol";
-        exec("mkfifo " + pipe);
+        exec("mkfifo", [pipe]);
     }
     if (map) {
         map(fn, cb);
@@ -53,21 +53,25 @@ omx.start = function (fn, onFinish) {
     function cb(fn) {
         console.log(fn);
         exec(
-            BINARY + ' -o hdmi "' + fn + '" < ' + pipe,
+            BINARY,
+            ["-o", "hdmi", '"' + fn + '"', "<", pipe],
             function (error, stdout, stderr) {
                 console.log(stdout);
+                if (error) {
+                    console.log(error);
+                }
                 if (onFinish) {
                     onFinish();
                 }
             }
         );
-        exec("echo . > " + pipe);
+        exec("echo", [".", ">", pipe]);
     }
 };
 
 omx.sendKey = function (key) {
     if (!pipe) return;
-    exec("echo -n " + key + " > " + pipe);
+    exec("echo", ["-n", key, ">", pipe]);
 };
 
 omx.mapKey = function (command, key, then) {
@@ -81,7 +85,7 @@ omx.mapKey = function (command, key, then) {
 
 omx.mapKey("pause", "p");
 omx.mapKey("quit", "q", function () {
-    exec("rm " + pipe);
+    exec("rm", [pipe]);
     pipe = false;
 });
 omx.mapKey("play", ".");
